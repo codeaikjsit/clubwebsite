@@ -153,21 +153,21 @@ export default function Events() {
                 {/* Navigation Buttons */}
                 <button
                   onClick={prevSlide}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-80 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
                   aria-label="Previous Event"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-80 md:opacity-0 md:group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
                   aria-label="Next Event"
                 >
                   <ChevronRight size={16} />
                 </button>
 
                 {/* Bottom Overlay & Indicators */}
-                <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between">
+                <div className="absolute bottom-3 left-3 right-3 z-20 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                   <div>
                     <span className="text-[10px] font-mono uppercase tracking-widest text-[#8bc9d2] font-semibold block">
                       {CAROUSEL_IMAGES[currentSlide].tag}
@@ -176,7 +176,7 @@ export default function Events() {
                       {CAROUSEL_IMAGES[currentSlide].caption}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 flex-wrap">
                     {CAROUSEL_IMAGES.map((_, index) => (
                       <button
                         key={index}

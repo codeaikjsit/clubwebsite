@@ -363,16 +363,18 @@ export default function Hackathon() {
           Join us for Epoch 1.0, an 8-hour hands-on hackathon challenge where
           innovation meets execution.
         </p>
-        <button
-          className="blue-button"
-          type="button"
-          onClick={() => setShowRegistration(true)}
-        >
-          JOIN US <ArrowRight size={15} />
-        </button>
-        <Link className="blue-text-link" href="/">
-          Back to home
-        </Link>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-6">
+          <button
+            className="blue-button"
+            type="button"
+            onClick={() => setShowRegistration(true)}
+          >
+            JOIN US <ArrowRight size={15} />
+          </button>
+          <Link className="blue-text-link" href="/">
+            Back to home
+          </Link>
+        </div>
       </section>
       {showRegistration ? (
         <div
