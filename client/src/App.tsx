@@ -1,5 +1,5 @@
 import NotFound from "@/pages/NotFound";
-import { Route, Switch, useLocation } from "wouter";
+import { Route, Switch, Router as WouterRouter, useLocation } from "wouter";
 import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import CodeAIShell from "./components/CodeAIShell";
@@ -17,18 +17,21 @@ function ScrollToTop() {
 }
 
 function Router() {
+  const baseUrl = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
   return (
-    <CodeAIShell>
-      <ScrollToTop />
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/events" component={Events} />
-        <Route path="/hackathon" component={Hackathon} />
-        <Route path="/about" component={About} />
-        <Route path="/404" component={NotFound} />
-        <Route component={NotFound} />
-      </Switch>
-    </CodeAIShell>
+    <WouterRouter base={baseUrl}>
+      <CodeAIShell>
+        <ScrollToTop />
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/events" component={Events} />
+          <Route path="/hackathon" component={Hackathon} />
+          <Route path="/about" component={About} />
+          <Route path="/404" component={NotFound} />
+          <Route component={NotFound} />
+        </Switch>
+      </CodeAIShell>
+    </WouterRouter>
   );
 }
 
