@@ -1,6 +1,16 @@
 /* Repository-grounded content source: edit this file to update visible CodeAI copy, event details, and team information. */
 
-export const codeaiImages = {
+export function withBase(path: string): string {
+  if (!path) return path;
+  if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("data:")) {
+    return path;
+  }
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  const base = import.meta.env.BASE_URL || "/";
+  return base.endsWith("/") ? base + cleanPath : base + "/" + cleanPath;
+}
+
+const rawCodeaiImages = {
   mark: "/codeai-logo-white.png",
   hero: "/events/report-writing-2.jpg",
   epochPoster: "/events/epoch-poster.jpg",
@@ -21,6 +31,10 @@ export const codeaiImages = {
   reportWriting3: "/events/report-writing-3.jpg",
   reportWriting4: "/events/report-writing-4.jpg",
 };
+
+export const codeaiImages: typeof rawCodeaiImages = Object.fromEntries(
+  Object.entries(rawCodeaiImages).map(([key, val]) => [key, withBase(val)])
+) as typeof rawCodeaiImages;
 
 export type EventItem = {
   id: string;
