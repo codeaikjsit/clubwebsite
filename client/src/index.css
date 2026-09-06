@@ -1826,7 +1826,7 @@ a:focus-visible {
   }
   .mobile-menu-button {
     display: grid;
-    margin-left: 11px;
+    margin-left: auto;
   }
   .dark-nav {
     display: none;
