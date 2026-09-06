@@ -105,7 +105,7 @@ export const siteContent = {
     number: "01",
     railLabel: "Upcoming event",
     kicker: "CodeAI Club Hackathon",
-    title: ["Epoch 1.0", "Collaborative Problem-Solving"],
+    title: ["Epoch 1.0", "The Timeline Begins Here"],
     description:
       "Epoch 1.0 is an 8-hour, hands-on hackathon where selected student teams will work on real-world problem statements across multiple technical tracks and domains.",
     note: "8-hour hackathon · 3rd October 2026 · KJSIT",

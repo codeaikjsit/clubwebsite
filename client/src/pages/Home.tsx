@@ -61,7 +61,7 @@ export default function Home() {
           <span className="band-icon">
             <Code2 size={16} />
           </span>
-          <span>AI & machine learning</span>
+          <span>Industry & Tech Connect</span>
         </div>
         <div>
           <span className="band-icon">
