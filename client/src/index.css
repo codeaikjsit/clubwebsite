@@ -2462,16 +2462,6 @@ a:focus-visible {
   inset: 0;
   background: linear-gradient(180deg, transparent, rgba(5, 9, 14, 0.65));
 }
-.home-archive-card > div > span {
-  position: absolute;
-  z-index: 1;
-  top: 10px;
-  left: 10px;
-  color: #dce9ff;
-  font:
-    600 12px "Space Grotesk",
-    sans-serif;
-}
 .home-archive-card > p {
   color: var(--signal-blue);
   font:
@@ -3213,22 +3203,24 @@ a:focus-visible {
 @media (max-width: 650px) {
   .page-hero {
     min-height: 0;
-    padding: 119px 16px 43px;
+    padding: 100px 16px 36px;
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 44px;
+    grid-template-rows: auto;
+    gap: 28px;
   }
   .hero-topline {
     font-size: 7px;
   }
   .page-hero h1 {
-    font-size: clamp(62px, 17vw, 90px);
+    font-size: clamp(38px, 12vw, 56px);
   }
   .home-visual {
-    min-height: 335px;
+    min-height: 0;
   }
   .home-visual .hero-image-shell {
-    height: 310px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    max-height: 260px;
   }
   .page-hero .hero-bottomline {
     grid-column: auto;
@@ -3236,39 +3228,37 @@ a:focus-visible {
   .home-feature-section,
   .home-route-band,
   .judging-panel,
-  .countdown-section {
+  .countdown-section,
+  .home-archive-section {
     grid-template-columns: 1fr;
-    padding: 90px 16px;
+    padding: 48px 16px;
   }
   .home-feature-section {
-    gap: 45px;
+    gap: 32px;
   }
   .section-mini-head {
     align-items: flex-start;
     flex-direction: column;
-    gap: 24px;
-  }
-  .home-archive-section {
-    padding: 90px 16px;
+    gap: 16px;
   }
   .home-archive-grid {
     grid-template-columns: 1fr;
-    gap: 38px;
+    gap: 24px;
   }
   .home-archive-card > div {
     height: auto;
   }
   .home-route-band {
-    gap: 47px;
+    gap: 32px;
   }
   .route-links a {
-    grid-template-columns: 80px 1fr 17px;
+    grid-template-columns: 70px 1fr 17px;
   }
   .inner-hero {
     min-height: 0;
-    padding: 128px 16px 73px;
+    padding: 104px 16px 48px;
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 20px;
   }
   .inner-hero-index {
     writing-mode: initial;
@@ -3279,35 +3269,46 @@ a:focus-visible {
     margin-top: -88px;
   }
   .inner-hero h1 {
-    font-size: clamp(54px, 15vw, 78px);
+    font-size: clamp(36px, 11vw, 52px);
   }
   .vision-panel {
     margin-inline: 16px;
     grid-template-columns: 1fr;
-    gap: 19px;
-    padding: 28px 22px;
+    gap: 16px;
+    padding: 24px 18px;
   }
   .mission-section,
   .team-roster-section,
   .hackathon-content-section {
     margin-inline: 16px;
     grid-template-columns: 1fr;
-    gap: 25px;
-    padding: 90px 0;
+    gap: 20px;
+    padding: 48px 0;
   }
   .page-section-label {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    margin-bottom: 12px;
     writing-mode: initial;
     transform: none;
   }
   .mission-section h2,
   .team-roster-main h2 {
-    font-size: 51px;
+    font-size: clamp(28px, 8vw, 42px);
   }
   .about-link-panel,
   .team-link-panel,
   .hackathon-final-cta {
     margin-inline: 16px;
-    padding: 88px 0;
+    padding: 48px 0;
+  }
+  .domain-tabs {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .domain-tabs::-webkit-scrollbar {
+    display: none;
   }
   .team-roster-heading {
     align-items: flex-start;

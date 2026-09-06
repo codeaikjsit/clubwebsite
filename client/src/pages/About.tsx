@@ -370,7 +370,7 @@ export default function About() {
               <div className="team-roster-heading mb-4">
                 <div>
                   <p className="kicker text-xs font-mono uppercase tracking-widest text-[#8bc9d2] font-bold m-0">
-                    CLUB MEMBERS — MEMBERS
+                    MEMBERS
                   </p>
                 </div>
               </div>

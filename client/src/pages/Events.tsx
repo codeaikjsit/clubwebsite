@@ -94,83 +94,103 @@ export default function Events() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [modalEvent]);
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % CAROUSEL_IMAGES.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
+  };
+
   return (
-    <div className="pt-24 pb-16">
-      {/* Hero Event Gallery Section */}
-      <section className="mb-12">
-        <div className="bg-[#101820]/90 border border-white/10 rounded-2xl overflow-hidden p-6 md:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Copy Column */}
-            <div className="lg:col-span-5 flex flex-col justify-center gap-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c8ff49]/10 border border-[#c8ff49]/20 w-fit">
-                <span className="w-2 h-2 rounded-full bg-[#c8ff49] animate-pulse" />
-                <span className="text-xs font-mono text-[#c8ff49] tracking-wider uppercase font-semibold">
-                  Photo Archive
-                </span>
-              </div>
+    <div className="inner-page events-page">
+      {/* Inner Hero Section with Event Gallery Carousel */}
+      <section className="inner-hero inner-hero-simple">
+        <div className="inner-hero-index">02 / EVENTS</div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+          {/* Left Column: Title & Description */}
+          <div className="lg:col-span-7">
+            <p className="kicker">CodeAI Club / Events</p>
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+              Our{" "}
+              <span className="bg-gradient-to-r from-[#c8ff49] to-[#8bc9d2] text-transparent bg-clip-text">
+                Events
+              </span>
+            </h1>
+            <p className="inner-lede text-base md:text-lg leading-relaxed text-[#a0b0be]">
+              Discover workshops, bootcamps, hands-on technical sessions, and community gatherings hosted by CodeAI Club.
+            </p>
+          </div>
 
-              <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight m-0">
-                Event <span className="text-[#80b6ff]">GALLERY</span>
-              </h1>
-
-              <p className="text-[#8e9da0] text-sm md:text-base leading-relaxed m-0">
-                Moments from our hands-on workshops, hackathons, and interactive technical sessions. Explore our community building and learning experiences in action.
-              </p>
-
-              <div className="pt-2 flex items-center gap-4 text-xs font-mono text-[#8bc9d2]">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#8bc9d2]" />
-                  <span>KJSIT Labs</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff49]" />
-                  <span>CodeAI Community</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Interactive Carousel Column */}
-            <div className="lg:col-span-7">
-              <div className="relative aspect-video rounded-xl overflow-hidden bg-[#080d12] border border-white/15 shadow-2xl group">
-                {/* Images Stack */}
+          {/* Right Column: Event Gallery Carousel */}
+          <div className="lg:col-span-5">
+            <div className="relative group rounded-2xl overflow-hidden border border-[rgba(239,244,255,0.15)] bg-[#101820]/90 shadow-2xl">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#080d12]">
                 {CAROUSEL_IMAGES.map((image, index) => (
                   <div
                     key={image.url}
-                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${index === currentSlide
+                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                      index === currentSlide
                         ? "opacity-100 scale-100 z-10"
                         : "opacity-0 scale-105 pointer-events-none z-0"
-                      }`}
+                    }`}
                   >
                     <img
                       src={image.url}
                       alt={image.caption}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080d12]/90 via-transparent to-black/20" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080d12] via-transparent to-transparent opacity-80" />
                   </div>
                 ))}
 
-                {/* Left / Right Carousel Controls */}
+                {/* Badge Top Left */}
+                <div className="absolute top-3 left-3 z-20 flex items-center gap-2 px-2.5 py-1 rounded-full border border-white/10 bg-[#080d12]/80 backdrop-blur-md text-[10px] font-mono font-semibold text-[#c8ff49] tracking-wider uppercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff49] animate-ping" />
+                  <span>Event Gallery</span>
+                </div>
+
+                {/* Navigation Buttons */}
                 <button
-                  onClick={() =>
-                    setCurrentSlide((prev) =>
-                      prev > 0 ? prev - 1 : CAROUSEL_IMAGES.length - 1
-                    )
-                  }
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#80b6ff] hover:text-black"
+                  onClick={prevSlide}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
                   aria-label="Previous Event"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <button
-                  onClick={() =>
-                    setCurrentSlide((prev) => (prev + 1) % CAROUSEL_IMAGES.length)
-                  }
-                  className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#80b6ff] hover:text-black"
+                  onClick={nextSlide}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
                   aria-label="Next Event"
                 >
                   <ChevronRight size={16} />
                 </button>
+
+                {/* Bottom Overlay & Indicators */}
+                <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#8bc9d2] font-semibold block">
+                      {CAROUSEL_IMAGES[currentSlide].tag}
+                    </span>
+                    <p className="text-xs font-bold text-white m-0 tracking-wide drop-shadow-md">
+                      {CAROUSEL_IMAGES[currentSlide].caption}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    {CAROUSEL_IMAGES.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentSlide(index)}
+                        className={`h-1.5 rounded-full transition-all ${
+                          index === currentSlide
+                            ? "w-5 bg-[#c8ff49]"
+                            : "w-1.5 bg-white/40 hover:bg-white/70"
+                        }`}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -206,7 +226,7 @@ export default function Events() {
                   alt={event.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <span className="absolute top-3 right-3 bg-[#080d12]/80 border border-[#c8ff49]/30 text-[#c8ff49] px-2.5 py-1 text-xs font-mono rounded font-bold">
+                <span className="absolute top-3 right-3 bg-[#080d12]/80 border border-[#c8ff49]/30 text-[#c8ff49] px-2.5 py-1 text-xs font-mono rounded font-bold z-10">
                   {event.year}
                 </span>
               </div>
@@ -304,10 +324,11 @@ export default function Events() {
                     <button
                       key={idx}
                       onClick={() => setModalSlideIndex(idx)}
-                      className={`h-2 rounded-full transition-all ${idx === modalSlideIndex
+                      className={`h-2 rounded-full transition-all ${
+                        idx === modalSlideIndex
                           ? "w-6 bg-[#c8ff49]"
                           : "w-2 bg-white/30 hover:bg-white/60"
-                        }`}
+                      }`}
                       aria-label={`Go to slide ${idx + 1}`}
                     />
                   ))}
