@@ -57,7 +57,7 @@ export type EventItem = {
 
 export const siteContent = {
   socials: {
-    github: "https://github.com/vedanthundare/CodeAI",
+    github: "https://github.com/codeaikjsit",
     linkedin: "https://www.linkedin.com/company/code-ai-kjsit/",
     instagram: "https://www.instagram.com/codeai.kjsit/",
   },
