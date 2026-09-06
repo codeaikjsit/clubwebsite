@@ -315,6 +315,24 @@ export const siteContent = {
         description: "From Information to Impact: Mastering Report Writing workshop by Dr. Pradnya Patil.",
         image: codeaiImages.reportWriting2,
         tag: "CodeAI Workshop",
+        gallery: [
+          {
+            url: codeaiImages.reportWriting2,
+            caption: "Speaker Dr. Pradnya Patil, Faculty Coordinators & Student Organizers",
+          },
+          {
+            url: codeaiImages.reportWriting1,
+            caption: "Interactive Classroom Session with Students",
+          },
+          {
+            url: codeaiImages.reportWriting3,
+            caption: "Dr. Pradnya Patil Demonstrating Report Structure",
+          },
+          {
+            url: codeaiImages.reportWriting4,
+            caption: "Classroom Audience & Live Document Formatting",
+          },
+        ],
       },
       {
         index: "02",
@@ -324,6 +342,28 @@ export const siteContent = {
         description: "24 Hours Offline Hackathon organized by CodeAI and IETE.",
         image: codeaiImages.levelUp4,
         tag: "CodeAI x IETE event",
+        gallery: [
+          {
+            url: codeaiImages.levelUp4,
+            caption: "Stage Inauguration & Chief Guests Table",
+          },
+          {
+            url: codeaiImages.levelUp2,
+            caption: "LEVEL-UP Hackathon Participants & Team Photo",
+          },
+          {
+            url: codeaiImages.levelUp5,
+            caption: "Organizing Committee & Faculty Members",
+          },
+          {
+            url: codeaiImages.levelUp1,
+            caption: "Auditorium Audience Overview",
+          },
+          {
+            url: codeaiImages.levelUp3,
+            caption: "AI Skills Lab Mentorship & Team Build Session",
+          },
+        ],
       },
       {
         index: "03",
@@ -333,6 +373,24 @@ export const siteContent = {
         description: "Event gallery from the CodeAI App Development series.",
         image: codeaiImages.appDev1,
         tag: "CodeAI event",
+        gallery: [
+          {
+            url: codeaiImages.appDev1,
+            caption: "Hands-on App Development Coding Session in Lab",
+          },
+          {
+            url: codeaiImages.appDev2,
+            caption: "Technical Presentation & Code Architecture Review",
+          },
+          {
+            url: codeaiImages.appDev3,
+            caption: "Instructor Demonstrating Mobile Development Concepts",
+          },
+          {
+            url: codeaiImages.appDev4,
+            caption: "Collaborative Student Peer Problem Solving",
+          },
+        ],
       },
     ],
   },

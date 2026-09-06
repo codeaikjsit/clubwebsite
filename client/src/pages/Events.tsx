@@ -1,6 +1,6 @@
 /* Blue Violet Signal: Events page showcasing workshops, bootcamps, and event gallery archive. */
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Images } from "lucide-react";
 import { codeaiImages, siteContent } from "@/lib/codeai-content";
 
 const CAROUSEL_IMAGES = [
@@ -63,6 +63,8 @@ const CAROUSEL_IMAGES = [
 
 export default function Events() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [modalEvent, setModalEvent] = useState<any | null>(null);
+  const [modalSlideIndex, setModalSlideIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -71,38 +73,66 @@ export default function Events() {
     return () => clearInterval(timer);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % CAROUSEL_IMAGES.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
-  };
+  useEffect(() => {
+    if (!modalEvent) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setModalEvent(null);
+      } else if (e.key === "ArrowLeft") {
+        const gallery = modalEvent.gallery || [];
+        if (gallery.length > 0) {
+          setModalSlideIndex((prev) => (prev > 0 ? prev - 1 : gallery.length - 1));
+        }
+      } else if (e.key === "ArrowRight") {
+        const gallery = modalEvent.gallery || [];
+        if (gallery.length > 0) {
+          setModalSlideIndex((prev) => (prev < gallery.length - 1 ? prev + 1 : 0));
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [modalEvent]);
 
   return (
-    <div className="inner-page events-page">
-      {/* Inner Hero Section with Event Gallery Carousel */}
-      <section className="inner-hero inner-hero-simple">
-        <div className="inner-hero-index">02 / EVENTS</div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
-          {/* Left Column: Title & Description */}
-          <div className="lg:col-span-7">
-            <p className="kicker">CodeAI Club / Events</p>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
-              Our{" "}
-              <span className="bg-gradient-to-r from-[#c8ff49] to-[#8bc9d2] text-transparent bg-clip-text">
-                Events
-              </span>
-            </h1>
-            <p className="inner-lede text-base md:text-lg leading-relaxed text-[#a0b0be]">
-              Discover workshops, bootcamps, hands-on technical sessions, and community gatherings hosted by CodeAI Club.
-            </p>
-          </div>
+    <div className="pt-24 pb-16">
+      {/* Hero Event Gallery Section */}
+      <section className="mb-12">
+        <div className="bg-[#101820]/90 border border-white/10 rounded-2xl overflow-hidden p-6 md:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left Copy Column */}
+            <div className="lg:col-span-5 flex flex-col justify-center gap-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c8ff49]/10 border border-[#c8ff49]/20 w-fit">
+                <span className="w-2 h-2 rounded-full bg-[#c8ff49] animate-pulse" />
+                <span className="text-xs font-mono text-[#c8ff49] tracking-wider uppercase font-semibold">
+                  Photo Archive
+                </span>
+              </div>
 
-          {/* Right Column: Event Gallery Carousel */}
-          <div className="lg:col-span-5">
-            <div className="relative group rounded-2xl overflow-hidden border border-[rgba(239,244,255,0.15)] bg-[#101820]/90 shadow-2xl">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#080d12]">
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight m-0">
+                Event <span className="text-[#80b6ff]">GALLERY</span>
+              </h1>
+
+              <p className="text-[#8e9da0] text-sm md:text-base leading-relaxed m-0">
+                Moments from our hands-on workshops, hackathons, and interactive technical sessions. Explore our community building and learning experiences in action.
+              </p>
+
+              <div className="pt-2 flex items-center gap-4 text-xs font-mono text-[#8bc9d2]">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8bc9d2]" />
+                  <span>KJSIT Labs</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff49]" />
+                  <span>CodeAI Community</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Interactive Carousel Column */}
+            <div className="lg:col-span-7">
+              <div className="relative aspect-video rounded-xl overflow-hidden bg-[#080d12] border border-white/15 shadow-2xl group">
+                {/* Images Stack */}
                 {CAROUSEL_IMAGES.map((image, index) => (
                   <div
                     key={image.url}
@@ -114,58 +144,33 @@ export default function Events() {
                     <img
                       src={image.url}
                       alt={image.caption}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080d12] via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080d12]/90 via-transparent to-black/20" />
                   </div>
                 ))}
 
-                {/* Badge Top Left */}
-                <div className="absolute top-3 left-3 z-20 flex items-center gap-2 px-2.5 py-1 rounded-full border border-white/10 bg-[#080d12]/80 backdrop-blur-md text-[10px] font-mono font-semibold text-[#c8ff49] tracking-wider uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff49] animate-ping" />
-                  <span>Event Gallery</span>
-                </div>
-
-                {/* Navigation Buttons */}
+                {/* Left / Right Carousel Controls */}
                 <button
-                  onClick={prevSlide}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
+                  onClick={() =>
+                    setCurrentSlide((prev) =>
+                      prev > 0 ? prev - 1 : CAROUSEL_IMAGES.length - 1
+                    )
+                  }
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#80b6ff] hover:text-black"
                   aria-label="Previous Event"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <button
-                  onClick={nextSlide}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#080d12]/70 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#c8ff49] hover:text-[#080d12]"
+                  onClick={() =>
+                    setCurrentSlide((prev) => (prev + 1) % CAROUSEL_IMAGES.length)
+                  }
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#80b6ff] hover:text-black"
                   aria-label="Next Event"
                 >
                   <ChevronRight size={16} />
                 </button>
-
-                {/* Bottom Overlay & Indicators */}
-                <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#8bc9d2] font-semibold block">
-                      {CAROUSEL_IMAGES[currentSlide].tag}
-                    </span>
-                    <p className="text-xs font-bold text-white m-0 tracking-wide drop-shadow-md">
-                      {CAROUSEL_IMAGES[currentSlide].caption}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    {CAROUSEL_IMAGES.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentSlide(index)}
-                        className={`h-1.5 rounded-full transition-all ${index === currentSlide
-                            ? "w-5 bg-[#c8ff49]"
-                            : "w-1.5 bg-white/40 hover:bg-white/70"
-                          }`}
-                        aria-label={`Go to slide ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -187,19 +192,31 @@ export default function Events() {
           {siteContent.archive.events.map((event) => (
             <article
               key={event.index}
-              className="home-archive-card border border-[rgba(239,244,236,0.13)] bg-[#101820]/90 p-5 rounded-lg hover:border-[#80b6ff]/40 transition-all"
+              onClick={() => {
+                if (event.gallery && event.gallery.length > 0) {
+                  setModalEvent(event);
+                  setModalSlideIndex(0);
+                }
+              }}
+              className="home-archive-card border border-[rgba(239,244,236,0.13)] bg-[#101820]/90 p-5 rounded-lg hover:border-[#80b6ff]/60 hover:shadow-lg cursor-pointer group transition-all"
             >
               <div className="aspect-video bg-[#0d171c] mb-4 overflow-hidden rounded relative">
                 <img
                   src={event.image}
                   alt={event.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <span className="absolute top-3 right-3 bg-[#080d12]/80 border border-[#c8ff49]/30 text-[#c8ff49] px-2.5 py-1 text-xs font-mono rounded font-bold">
                   {event.year}
                 </span>
+
+                <span className="absolute bottom-3 left-3 bg-[#080d12]/90 border border-white/20 text-white px-2.5 py-1 text-xs font-mono rounded flex items-center gap-1.5 opacity-90 group-hover:opacity-100 group-hover:border-[#c8ff49]/60 transition-all">
+                  <Images size={13} className="text-[#c8ff49]" /> View Gallery ({event.gallery?.length || 0})
+                </span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{event.title}</h3>
+              <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#80b6ff] transition-colors">
+                {event.title}
+              </h3>
               <small className="text-[#8e9da0] text-sm leading-relaxed block">
                 {event.description}
               </small>
@@ -207,6 +224,106 @@ export default function Events() {
           ))}
         </div>
       </section>
+
+      {/* Interactive Popup Gallery Modal */}
+      {modalEvent && modalEvent.gallery && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
+          <div
+            className="fixed inset-0"
+            onClick={() => setModalEvent(null)}
+            aria-label="Close modal backdrop"
+          />
+          <div className="relative z-10 w-full max-w-4xl bg-[#101820] border border-white/20 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            {/* Modal Header */}
+            <div className="p-4 md:p-5 border-b border-white/10 flex items-center justify-between bg-[#080d12]/80">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="bg-[#c8ff49]/10 text-[#c8ff49] border border-[#c8ff49]/30 text-xs font-mono px-2 py-0.5 rounded font-bold uppercase">
+                    {modalEvent.year}
+                  </span>
+                  <span className="text-xs font-mono text-[#80b6ff] uppercase tracking-wider">
+                    {modalEvent.tag || modalEvent.category}
+                  </span>
+                </div>
+                <h2 className="text-xl md:text-2xl font-bold text-white m-0">
+                  {modalEvent.title}
+                </h2>
+              </div>
+              <button
+                onClick={() => setModalEvent(null)}
+                className="p-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                aria-label="Close gallery modal"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Image Carousel Container */}
+            <div className="relative flex-1 bg-black/90 flex flex-col justify-center items-center overflow-hidden min-h-[300px] md:min-h-[420px] p-2">
+              <img
+                src={modalEvent.gallery[modalSlideIndex].url}
+                alt={modalEvent.gallery[modalSlideIndex].caption}
+                className="max-h-[60vh] max-w-full object-contain rounded transition-all duration-300"
+              />
+
+              {/* Left / Right Arrow Controls */}
+              {modalEvent.gallery.length > 1 && (
+                <>
+                  <button
+                    onClick={() =>
+                      setModalSlideIndex((prev) =>
+                        prev > 0 ? prev - 1 : modalEvent.gallery.length - 1
+                      )
+                    }
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 border border-white/20 text-white flex items-center justify-center hover:bg-[#80b6ff] hover:text-black transition-all"
+                    aria-label="Previous Photo"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    onClick={() =>
+                      setModalSlideIndex((prev) =>
+                        prev < modalEvent.gallery.length - 1 ? prev + 1 : 0
+                      )
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 border border-white/20 text-white flex items-center justify-center hover:bg-[#80b6ff] hover:text-black transition-all"
+                    aria-label="Next Photo"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Caption & Indicators Footer */}
+            <div className="p-4 md:p-5 bg-[#080d12] border-t border-white/10 flex flex-col items-center gap-3">
+              <p className="text-sm md:text-base font-medium text-white text-center m-0 max-w-2xl leading-relaxed">
+                {modalEvent.gallery[modalSlideIndex].caption}
+              </p>
+
+              {/* Dot / Slide Navigation */}
+              {modalEvent.gallery.length > 1 && (
+                <div className="flex items-center gap-2">
+                  {modalEvent.gallery.map((_: any, idx: number) => (
+                    <button
+                      key={idx}
+                      onClick={() => setModalSlideIndex(idx)}
+                      className={`h-2 rounded-full transition-all ${idx === modalSlideIndex
+                          ? "w-6 bg-[#c8ff49]"
+                          : "w-2 bg-white/30 hover:bg-white/60"
+                        }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                  <span className="ml-2 text-xs font-mono text-[#8e9da0]">
+                    {modalSlideIndex + 1} / {modalEvent.gallery.length}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
