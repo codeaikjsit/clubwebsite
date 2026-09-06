@@ -2,13 +2,24 @@
 
 export const codeaiImages = {
   mark: "/codeai-logo-white.png",
-  hero: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80",
-  appDevelopment:
-    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
-  reactBootcamp:
-    "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80",
+  hero: "/events/report-writing-2.jpg",
+  epochPoster: "/events/epoch-poster.jpg",
+  appDevelopment: "/events/app-dev-1.jpg",
+  appDev1: "/events/app-dev-1.jpg",
+  appDev2: "/events/app-dev-2.png",
+  appDev3: "/events/app-dev-3.png",
+  appDev4: "/events/app-dev-4.png",
   community:
     "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+  levelUp1: "/events/level-up-1.jpg",
+  levelUp2: "/events/level-up-2.jpg",
+  levelUp3: "/events/level-up-3.jpg",
+  levelUp4: "/events/level-up-4.jpg",
+  levelUp5: "/events/level-up-5.jpg",
+  reportWriting1: "/events/report-writing-1.jpg",
+  reportWriting2: "/events/report-writing-2.jpg",
+  reportWriting3: "/events/report-writing-3.jpg",
+  reportWriting4: "/events/report-writing-4.jpg",
 };
 
 export type EventItem = {
@@ -59,7 +70,6 @@ export const siteContent = {
     footnote: "Be greater, be greater together",
     imageAlt: "Students collaborating in a computer engineering lab",
     captionLeft: "CodeAI / KJSIT",
-    captionRight: "AI + Machine Learning",
     sideNote: "Creativity · Technology",
   },
   principles: [
@@ -260,7 +270,7 @@ export const siteContent = {
       title: "Epoch 1.0",
       description:
         "An 8-hour hackathon where student teams work on real-world problem statements. Features a 4-hour build phase, a mentorship round, and a final 4-hour build phase.",
-      image: codeaiImages.hero,
+      image: codeaiImages.epochPoster,
       accent: "lime",
       kind: "hackathon",
       time: "8-hour challenge",
@@ -280,25 +290,34 @@ export const siteContent = {
     railLabel: "Events archive",
     kicker: "Previously conducted / event gallery",
     title: ["Our", "EVENTS"],
-    count: "02",
+    count: "03",
     countLabel: "event series",
     events: [
       {
         index: "01",
-        year: "2025",
-        category: "App Development",
-        title: "App Development",
-        description: "Event gallery from the CodeAI App Development series.",
-        image: codeaiImages.appDevelopment,
-        tag: "CodeAI event",
+        year: "AUG 2026",
+        category: "Workshop",
+        title: "Mastering Report Writing",
+        description: "From Information to Impact: Mastering Report Writing workshop by Dr. Pradnya Patil.",
+        image: codeaiImages.reportWriting2,
+        tag: "CodeAI Workshop",
       },
       {
         index: "02",
-        year: "2025",
-        category: "React Bootcamp",
-        title: "React Bootcamp",
-        description: "Event gallery from the CodeAI React Bootcamp series.",
-        image: codeaiImages.reactBootcamp,
+        year: "APR 2025",
+        category: "24 Hours Hackathon",
+        title: "LEVEL-UP Hackathon",
+        description: "24 Hours Offline Hackathon organized by CodeAI and IETE.",
+        image: codeaiImages.levelUp4,
+        tag: "CodeAI x IETE event",
+      },
+      {
+        index: "03",
+        year: "FEB 2025",
+        category: "App Development",
+        title: "App Development",
+        description: "Event gallery from the CodeAI App Development series.",
+        image: codeaiImages.appDev1,
         tag: "CodeAI event",
       },
     ],

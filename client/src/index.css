@@ -2436,7 +2436,9 @@ a:focus-visible {
   gap: 16px;
 }
 .home-archive-card > div {
-  height: 135px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(239, 244, 255, 0.12);
@@ -3254,7 +3256,7 @@ a:focus-visible {
     gap: 38px;
   }
   .home-archive-card > div {
-    height: 220px;
+    height: auto;
   }
   .home-route-band {
     gap: 47px;

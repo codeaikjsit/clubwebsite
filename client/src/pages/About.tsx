@@ -24,23 +24,23 @@ const DOMAIN_TABS: { id: DomainTab; label: string }[] = [
 const CAROUSEL_IMAGES = [
   {
     url: codeaiImages.hero,
-    caption: "CodeAI Community & Innovation Labs",
-    tag: "Workshops & Events",
+    caption: "CodeAI Team & Student Members",
+    tag: "Team Group Photos",
   },
   {
-    url: codeaiImages.appDevelopment,
-    caption: "App Development Series",
-    tag: "Hands-on Projects",
+    url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
+    caption: "CodeAI Core & Subcore Team Gatherings",
+    tag: "Team Moments",
   },
   {
-    url: codeaiImages.reactBootcamp,
-    caption: "React & Web Engineering Bootcamp",
-    tag: "Student Workshops",
+    url: codeaiImages.community,
+    caption: "KJSIT Campus & Engineering Labs",
+    tag: "College Life",
   },
   {
     url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
-    caption: "Epoch Hackathon Build Sessions",
-    tag: "Team Building",
+    caption: "K J Somaiya Institute of Technology Campus",
+    tag: "KJSIT Mumbai",
   },
 ];
 
@@ -106,7 +106,7 @@ export default function About() {
             </p>
           </div>
 
-          {/* Right Column: Photo Carousel Placeholder (Changes every 3-4s) */}
+          {/* Right Column: Photo Carousel (No Text) */}
           <div className="lg:col-span-5">
             <div className="relative group rounded-2xl overflow-hidden border border-[rgba(239,244,255,0.15)] bg-[#101820]/90 shadow-2xl">
               {/* Carousel Image Display */}
@@ -121,18 +121,12 @@ export default function About() {
                   >
                     <img
                       src={image.url}
-                      alt={image.caption}
+                      alt={`Photo ${index + 1}`}
                       className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080d12] via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080d12]/40 via-transparent to-transparent" />
                   </div>
                 ))}
-
-                {/* Carousel Badge Top Left */}
-                <div className="absolute top-3 left-3 z-20 flex items-center gap-2 px-2.5 py-1 rounded-full border border-white/10 bg-[#080d12]/80 backdrop-blur-md text-[10px] font-mono font-semibold text-[#c8ff49] tracking-wider uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff49] animate-ping" />
-                  <span>Event Gallery</span>
-                </div>
 
                 {/* Manual Navigation Controls */}
                 <button
@@ -150,30 +144,19 @@ export default function About() {
                   <ChevronRight size={16} />
                 </button>
 
-                {/* Bottom Caption & Indicators */}
-                <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#8bc9d2] font-semibold block">
-                      {CAROUSEL_IMAGES[currentSlide].tag}
-                    </span>
-                    <p className="text-xs font-bold text-white m-0 tracking-wide drop-shadow-md">
-                      {CAROUSEL_IMAGES[currentSlide].caption}
-                    </p>
-                  </div>
-                  {/* Dots Indicator */}
-                  <div className="flex items-center gap-1.5">
-                    {CAROUSEL_IMAGES.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentSlide(index)}
-                        className={`h-1.5 rounded-full transition-all ${index === currentSlide
-                          ? "w-5 bg-[#c8ff49]"
-                          : "w-1.5 bg-white/40 hover:bg-white/70"
-                          }`}
-                        aria-label={`Go to photo ${index + 1}`}
-                      />
-                    ))}
-                  </div>
+                {/* Bottom Dots Indicator */}
+                <div className="absolute bottom-3 left-0 right-0 z-20 flex items-center justify-center gap-1.5">
+                  {CAROUSEL_IMAGES.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`h-1.5 rounded-full transition-all ${index === currentSlide
+                        ? "w-5 bg-[#c8ff49]"
+                        : "w-1.5 bg-white/40 hover:bg-white/70"
+                        }`}
+                      aria-label={`Go to photo ${index + 1}`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
@@ -312,7 +295,7 @@ export default function About() {
               <div className="team-roster-heading mb-4">
                 <div>
                   <p className="kicker text-xs font-mono uppercase tracking-widest text-[#8bc9d2] font-bold m-0">
-                    DEPARTMENT HEADS — SUBCORE
+                    DOMAIN ADMINS — SUBCORE
                   </p>
                 </div>
               </div>

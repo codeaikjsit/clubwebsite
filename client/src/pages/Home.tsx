@@ -93,9 +93,9 @@ export default function Home() {
             View all events <ArrowRight size={15} />
           </Link>
         </div>
-        <Link className="level-up-card" href="/events">
+        <Link className="level-up-card" href="/hackathon">
           <div className="level-up-card-image">
-            <img src={codeaiImages.hero} alt="Epoch 1.0 hackathon" />
+            <img src={codeaiImages.epochPoster} alt="Epoch 1.0 hackathon" />
             <span>{siteContent.hackathon.date}</span>
             <div className="level-up-overlay" />
           </div>
@@ -130,7 +130,6 @@ export default function Home() {
                 <img src={event.image} alt={event.title} />
                 <span>{event.year}</span>
               </div>
-              <p>{event.category}</p>
               <h3>{event.title}</h3>
               <small>{event.description}</small>
             </article>
