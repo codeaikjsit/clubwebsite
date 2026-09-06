@@ -1,6 +1,6 @@
 /* Blue Violet Signal: Events page showcasing workshops, bootcamps, and event gallery archive. */
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, X, Images } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { codeaiImages, siteContent } from "@/lib/codeai-content";
 
 const CAROUSEL_IMAGES = [
@@ -208,10 +208,6 @@ export default function Events() {
                 />
                 <span className="absolute top-3 right-3 bg-[#080d12]/80 border border-[#c8ff49]/30 text-[#c8ff49] px-2.5 py-1 text-xs font-mono rounded font-bold">
                   {event.year}
-                </span>
-
-                <span className="absolute bottom-3 left-3 bg-[#080d12]/90 border border-white/20 text-white px-2.5 py-1 text-xs font-mono rounded flex items-center gap-1.5 opacity-90 group-hover:opacity-100 group-hover:border-[#c8ff49]/60 transition-all">
-                  <Images size={13} className="text-[#c8ff49]" /> View Gallery ({event.gallery?.length || 0})
                 </span>
               </div>
               <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#80b6ff] transition-colors">
