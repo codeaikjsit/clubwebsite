@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
+  Calendar,
+  Check,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Compass,
@@ -7,7 +10,7 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import { codeaiImages, siteContent } from "@/lib/codeai-content";
+import { codeaiImages, siteContent, TenureYear } from "@/lib/codeai-content";
 import { InstagramCustomIcon, LinkedInCustomIcon } from "@/components/CustomSocialIcons";
 
 type RosterTab = "core" | "subcore" | "members";
@@ -23,24 +26,29 @@ const DOMAIN_TABS: { id: DomainTab; label: string }[] = [
 
 const CAROUSEL_IMAGES = [
   {
-    url: codeaiImages.hero,
-    caption: "CodeAI Team & Student Members",
+    url: codeaiImages.reportWriting2,
+    caption: "CodeAI Team & Faculty Coordinators",
     tag: "Team Group Photos",
   },
   {
-    url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
-    caption: "CodeAI Core & Subcore Team Gatherings",
+    url: codeaiImages.levelUp2,
+    caption: "LEVEL-UP Hackathon Participants & Team Photo",
     tag: "Team Moments",
   },
   {
-    url: codeaiImages.community,
-    caption: "KJSIT Campus & Engineering Labs",
-    tag: "College Life",
+    url: codeaiImages.levelUp5,
+    caption: "Organizing Committee & Faculty Members",
+    tag: "Club Events",
   },
   {
-    url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
-    caption: "K J Somaiya Institute of Technology Campus",
-    tag: "KJSIT Mumbai",
+    url: codeaiImages.appDev1,
+    caption: "Hands-on App Development Coding Session in Lab",
+    tag: "Lab Workshops",
+  },
+  {
+    url: codeaiImages.reportWriting1,
+    caption: "Interactive Classroom Session with Students",
+    tag: "KJSIT Sessions",
   },
 ];
 
@@ -59,6 +67,9 @@ const getLinkedinUrl = (handle?: string) => {
 };
 
 export default function About() {
+  const [selectedTenure, setSelectedTenure] = useState<TenureYear>("2026-27");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [subcoreDomain, setSubcoreDomain] = useState<DomainTab>("marketing");
   const [membersDomain, setMembersDomain] = useState<DomainTab>("organising");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -70,6 +81,16 @@ export default function About() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % CAROUSEL_IMAGES.length);
   };
@@ -78,11 +99,14 @@ export default function About() {
     setCurrentSlide((prev) => (prev - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
   };
 
-  const filteredSubcore = siteContent.people.subcore.filter(
+  const activeTenureData =
+    siteContent.people.byTenure[selectedTenure] || siteContent.people.byTenure["2026-27"];
+
+  const filteredSubcore = activeTenureData.subcore.filter(
     (m) => m.domain === subcoreDomain
   );
 
-  const filteredMembers = siteContent.people.members.filter(
+  const filteredMembers = activeTenureData.members.filter(
     (m) => m.domain === membersDomain
   );
 
@@ -228,28 +252,89 @@ export default function About() {
         </div>
 
         <div>
-          {/* Top Centered Section Header */}
-          <div className="text-center mb-10">
-            <p className="text-[11px] font-mono tracking-[0.25em] text-[#8bc9d2] uppercase font-bold mb-1">
-              — CODEAI —
-            </p>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white uppercase m-0">
-              TEAM
-            </h2>
+          {/* Top Section Header & Tenure Selector Bar */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-[rgba(239,244,255,0.12)]">
+            <div>
+              <p className="text-[11px] font-mono tracking-[0.25em] text-[#8bc9d2] uppercase font-bold mb-1">
+                — CODEAI —
+              </p>
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white uppercase m-0">
+                TEAM
+              </h2>
+            </div>
+
+            {/* Tenure Dropdown - STRICTLY NO ROUNDED EDGES */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <span className="text-xs font-mono tracking-widest text-[#8bc9d2] uppercase font-bold flex items-center gap-2">
+                <Calendar size={14} className="text-[#c8ff49]" />
+                TENURE:
+              </span>
+              <div className="relative min-w-[210px]" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="w-full flex items-center justify-between gap-4 bg-[#101820] border-2 border-[#c8ff49] text-[#c8ff49] font-mono text-xs font-bold tracking-wider px-4 py-2.5 transition-all hover:bg-[#18252b] focus:outline-none focus:ring-2 focus:ring-[#c8ff49] cursor-pointer"
+                  style={{ borderRadius: "0px" }}
+                  aria-expanded={isDropdownOpen}
+                  aria-haspopup="listbox"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-[#c8ff49] inline-block" style={{ borderRadius: "0px" }} />
+                    {siteContent.people.tenures.find((t) => t.id === selectedTenure)?.label || selectedTenure}
+                  </span>
+                  <ChevronDown
+                    size={15}
+                    className={`transition-transform duration-200 text-[#c8ff49] ${isDropdownOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+
+                {isDropdownOpen && (
+                  <div
+                    className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#101820] border-2 border-[#c8ff49] shadow-2xl overflow-hidden"
+                    style={{ borderRadius: "0px" }}
+                    role="listbox"
+                  >
+                    {siteContent.people.tenures.map((t) => (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedTenure(t.id);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 text-xs font-mono font-bold tracking-wider transition-all flex items-center justify-between cursor-pointer ${
+                          selectedTenure === t.id
+                            ? "bg-[#c8ff49] text-[#080d12]"
+                            : "text-[#eff4ec] hover:bg-[#18252b] hover:text-[#c8ff49]"
+                        }`}
+                        style={{ borderRadius: "0px" }}
+                        role="option"
+                        aria-selected={selectedTenure === t.id}
+                      >
+                        <span>{t.label}</span>
+                        {selectedTenure === t.id && (
+                          <Check size={14} className="text-[#080d12]" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           <div className="space-y-12">
             {/* 1. CORE SECTION */}
             <div className="team-roster-main">
-              <div className="team-roster-heading mb-4">
+              <div className="team-roster-heading mb-4 flex items-center justify-between">
                 <div>
                   <p className="kicker text-xs font-mono uppercase tracking-widest text-[#8bc9d2] font-bold m-0">
-                    LEADERSHIP — CORE
+                    LEADERSHIP — CORE ({selectedTenure})
                   </p>
                 </div>
               </div>
               <div className="full-roster-list">
-                {siteContent.people.core.map((member, index) => (
+                {activeTenureData.core.map((member, index) => (
                   <div className="full-member-row" key={member.name}>
                     <span className="member-index">
                       {String(index + 1).padStart(2, "0")}

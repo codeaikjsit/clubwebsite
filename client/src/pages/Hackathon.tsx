@@ -244,7 +244,7 @@ export default function Hackathon() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
           {siteContent.hackathon.tracks.map((track) => (
             <article
               className="track-card border border-[rgba(239,244,255,0.14)] bg-[#101a25]/90 p-6 rounded-lg hover:border-[#80b6ff]/50 hover:bg-[#142235] transition-all flex flex-col justify-between"
@@ -319,37 +319,6 @@ export default function Hackathon() {
             </div>
           ))}
           <p className="rewards-note">{siteContent.hackathon.rewards}</p>
-        </div>
-      </section>
-      <section className="sponsors-section">
-        <div className="page-section-label">
-          04 <span /> SPONSORS
-        </div>
-        <div>
-          <p className="kicker">Partners who make Epoch 1.0 possible</p>
-          <h2>
-            Built with{" "}
-            <span className="hackathon-white-accent bg-gradient-to-r from-[#c8ff49] to-[#8bc9d2] text-transparent bg-clip-text">support.</span>
-          </h2>
-          <p className="sponsors-intro">
-            Sponsor details will be added here as partnerships are confirmed.
-            Each card is ready for an official logo, URL, and partner
-            description.
-          </p>
-          <div className="sponsors-grid">
-            {siteContent.hackathon.sponsors.map(sponsor => (
-              <article className="sponsor-card" key={sponsor.name}>
-                <div className="sponsor-logo-placeholder">
-                  <span>{sponsor.shortName}</span>
-                </div>
-                <div>
-                  <strong>{sponsor.name}</strong>
-                  <small>{sponsor.detail}</small>
-                </div>
-                <ArrowRight size={15} />
-              </article>
-            ))}
-          </div>
         </div>
       </section>
       

@@ -79,18 +79,33 @@ export default function CodeAIShell({
       <header
         className={`dark-header ${scrolled ? "dark-header-scrolled" : ""}`}
       >
-        <Link
-          className="dark-brand"
-          href="/"
-          aria-label="CodeAI home"
-          onClick={() => setOpen(false)}
-        >
-          <img
-            src={codeaiImages.mark}
-            alt="CodeAI"
-            className="dark-brand-logo h-7 w-auto object-contain"
-          />
-        </Link>
+        <div className="flex items-center gap-3 md:gap-4">
+          <Link
+            className="dark-brand flex items-center"
+            href="/"
+            aria-label="CodeAI home"
+            onClick={() => setOpen(false)}
+          >
+            <img
+              src={codeaiImages.mark}
+              alt="CodeAI"
+              className="dark-brand-logo h-7 md:h-8 w-auto object-contain"
+            />
+          </Link>
+          <a
+            href="https://kjsit.somaiya.edu.in/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="K J Somaiya Institute of Technology"
+            className="flex items-center transition-opacity hover:opacity-85"
+          >
+            <img
+              src={codeaiImages.somaiyaLogo}
+              alt="K J Somaiya Institute of Technology"
+              className="h-10 md:h-12 w-auto object-contain shrink-0"
+            />
+          </a>
+        </div>
         <nav
           className={`dark-nav ${open ? "dark-nav-open" : ""}`}
           aria-label="Primary navigation"
